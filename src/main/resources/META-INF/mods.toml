@@ -1,0 +1,14 @@
+modLoader="javafml"
+loaderVersion="[43,)"
+license="All rights reserved"
+[[mods]]
+modId="fantasy_metropolis"
+version="1.0.0"
+displayName="FantasyMetropolis"
+description="It's a mod about Fantasy Metropolis"
+[[dependencies.fantasy_metropolis]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20, )"
+ordering="NONE"
+side="BOTH"
