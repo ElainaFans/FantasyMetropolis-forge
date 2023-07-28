@@ -1,7 +1,8 @@
 {
   "item.fantasy_metropolis.whiter_sword": "Wither Sword",
+  "tooltip.whiter_sword.title": "Wither Sword",
   "tip.whiter": "Wither Damage",
   "tip.range": "Range: ",
-  "tip.damage": "Damage",
+  "tip.damage": "§4§lDamage",
   "whiter_sword.kill_range": "§3§k§b§lBreak the space§3§k§f"
 }

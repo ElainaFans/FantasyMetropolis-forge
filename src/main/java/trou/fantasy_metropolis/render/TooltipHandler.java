@@ -3,6 +3,7 @@ package trou.fantasy_metropolis.render;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Either;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
@@ -11,6 +12,7 @@ import net.minecraft.network.chat.FormattedText;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderTooltipEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -25,19 +27,19 @@ public class TooltipHandler {
     private static int borderEnd = 0;
     private static int bgStart = 0;
     private static int bgEnd = 0;
+
     public static GuiGraphics guiGraphics = null;
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void gatherComponents(RenderTooltipEvent.GatherComponents event) {
         if (event.getItemStack().getItem() instanceof ItemSwordWhiter) {
-            var title = event.getTooltipElements().get(0);
             int range = event.getItemStack().getOrCreateTag().getInt("range");
             event.getTooltipElements().clear();
-            event.getTooltipElements().add(title);
+            event.getTooltipElements().add(Either.left(FormattedText.of(FrameWorker.marquee(I18n.get("tooltip.whiter_sword.title")))));
             event.getTooltipElements().add(Either.left(FormattedText.of("")));
             event.getTooltipElements().add(Either.left(FormattedText.of(ChatFormatting.LIGHT_PURPLE + "+ " + ChatFormatting.BOLD + I18n.get("tip.whiter"))));
             event.getTooltipElements().add(Either.left(FormattedText.of(ChatFormatting.BLUE + "+ " + ChatFormatting.BOLD + I18n.get("tip.range") + range)));
             event.getTooltipElements().add(Either.left(FormattedText.of("")));
-            event.getTooltipElements().add(Either.left(FormattedText.of(ChatFormatting.DARK_RED + "+INFINITE " + ChatFormatting.BOLD + I18n.get("tip.damage"))));
+            event.getTooltipElements().add(Either.left(FormattedText.of(ChatFormatting.DARK_RED + "+ " + FrameWorker.marquee("INFINITE ") + I18n.get("tip.damage"))));
         }
     }
 
@@ -56,6 +58,16 @@ public class TooltipHandler {
             bgEnd = event.getBackgroundEnd();
         }
     }
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void onRenderTick(TickEvent.RenderTickEvent event) {
+        float baseFrameTime = Minecraft.getInstance().getDeltaFrameTime();
+        float speedFactor = 0.1f;
+        var result = FrameWorker.increaseTimer(baseFrameTime * speedFactor);
+        if (result >= 20) FrameWorker.resetTimer();
+    }
+
+
 
     public static void postTooltip(ItemStack stack, PoseStack poseStack, int x, int y, Font font, int width, int height, List<ClientTooltipComponent> components) {
         if (stack.getItem() instanceof ItemSwordWhiter) {
