@@ -2,49 +2,61 @@ package trou.fantasy_metropolis.render;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
-import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.world.item.ItemStack;
-import org.joml.Matrix4f;
-
-import java.util.List;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.resources.ResourceLocation;
+import trou.fantasy_metropolis.FantasyMetropolis;
 
 public class BorderRenderer {
-    public static void drawGradientRect(Matrix4f mat, int zLevel, int left, int top, int right, int bottom, int startColor, int endColor)
-    {
+    private final GuiGraphics guiGraphics;
+    private final ResourceLocation top = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/border/top.png");
+    private final ResourceLocation bottom = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/border/bottom.png");
+    private final ResourceLocation left = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/border/left.png");
+    private final ResourceLocation right = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/border/right.png");
+    private final ResourceLocation left_top = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/border/left_top.png");
+    private final ResourceLocation right_top = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/border/right_top.png");
+    private final ResourceLocation left_bottom = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/border/left_bottom.png");
+    private final ResourceLocation right_bottom = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/border/right_bottom.png");
+    private final ResourceLocation star = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/border/stars.png");
+
+    public BorderRenderer(GuiGraphics guiGraphics) {
+        this.guiGraphics = guiGraphics;
+    }
+
+
+    private void blit(ResourceLocation pAtlasLocation, int pX, int pY, int pWidth, int pHeight) {
+        // duration maybe negative, we don't render negative width
+        if (pWidth > 0) guiGraphics.blit(pAtlasLocation, pX, pY, 0, 0, pWidth, pHeight, pWidth, pHeight);
+    }
+
+
+    public void drawImage(PoseStack poseStack, int x, int y, int width, int height) {
+        poseStack.pushPose();
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        poseStack.translate(0, 0, 400); // beneath the text and upon other items
         RenderSystem.enableDepthTest();
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
-        RenderSystem.setShader(GameRenderer::getPositionColorShader);
-
-        Tesselator tesselator = Tesselator.getInstance();
-        BufferBuilder bufferBuilder = tesselator.getBuilder();
-        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
-        drawGradientRect(mat, bufferBuilder, left, top, right, bottom, zLevel, startColor, endColor);
-        BufferUploader.drawWithShader(bufferBuilder.end());
-
+        // Size: base * 0.07
+        var widthOffset = 2;
+        width += widthOffset;
+        var horizonStart = x - 16;
+        var horizonDuration = width - 55;
+        var horizonEnd = x - 30 + width;
+        var verticalStart = y - 14;
+        var verticalDuration = height - 38;
+        var verticalEnd = y - 20 + height;
+        var horizonCenter = (int) (horizonStart + 0.5 * width);
+        blit(left_top, horizonStart, verticalStart, 41, 37);
+        blit(top, horizonStart + 41, verticalStart + 7, horizonDuration, 4);
+        blit(right_top, horizonEnd, verticalStart, 40, 37);
+        blit(left_bottom, horizonStart, verticalEnd, 46, 32);
+        blit(left, horizonStart + 9, verticalStart + 37, 1, verticalDuration);
+        blit(right, horizonEnd + 30, verticalStart + 37, 1, verticalDuration);
+        blit(right_bottom, horizonEnd - 6, verticalEnd, 46, 32);
+        blit(bottom, horizonStart + 46, verticalEnd + 25, width - 66, 2);
+        blit(star, horizonCenter + 7, verticalStart + 8, 12, 3);
+        RenderSystem.disableDepthTest();
         RenderSystem.disableBlend();
-    }
-
-    public static void drawGradientRect(Matrix4f mat, BufferBuilder bufferBuilder, int left, int top, int right, int bottom, int zLevel, int startColor, int endColor) {
-        float startAlpha = (float)(startColor >> 24 & 255) / 255.0F;
-        float startRed = (float)(startColor >> 16 & 255) / 255.0F;
-        float startGreen = (float)(startColor >> 8 & 255) / 255.0F;
-        float startBlue = (float)(startColor & 255) / 255.0F;
-        bufferBuilder.vertex(mat, (float)right, (float)top, (float)zLevel).color(startRed, startGreen, startBlue, startAlpha).endVertex();
-        bufferBuilder.vertex(mat, (float)left, (float)top, (float)zLevel).color(startRed, startGreen, startBlue, startAlpha).endVertex();
-        bufferBuilder.vertex(mat, (float)left, (float)bottom, (float)zLevel).color(startRed, startGreen, startBlue, startAlpha).endVertex();
-        bufferBuilder.vertex(mat, (float)right, (float)bottom, (float)zLevel).color(startRed, startGreen, startBlue, startAlpha).endVertex();
-    }
-
-    public static void drawBorder(PoseStack poseStack, int x, int y, int width, int height, ItemStack item, List<ClientTooltipComponent> components, Font font, int borderStart, int borderEnd, int bgStart, int bgEnd) {
-        poseStack.pushPose();
-        Matrix4f matrix = poseStack.last().pose();
-        drawGradientRect(matrix, 400, x - 3, y - 3 + 1, x - 3 + 1, y + height + 3 - 1, borderStart, borderEnd);
-        drawGradientRect(matrix, 400, x + width + 2, y - 3 + 1, x + width + 3, y + height + 3 - 1, borderStart, borderEnd);
-        drawGradientRect(matrix, 400, x - 3, y - 3, x + width + 3, y - 3 + 1, borderStart, borderEnd);
-        drawGradientRect(matrix, 400, x - 3, y + height + 2, x + width + 3, y + height + 3, borderStart, borderEnd);
         poseStack.popPose();
     }
 }
