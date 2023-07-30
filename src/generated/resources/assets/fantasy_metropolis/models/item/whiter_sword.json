@@ -1,6 +1,42 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "fantasy_metropolis:item/whiter_sword"
-  }
+  "display": {
+    "firstperson_righthand": {
+      "rotation": [
+        180,
+        0,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ],
+      "translation": [
+        0,
+        10,
+        0
+      ]
+    },
+    "gui": {
+      "rotation": [
+        180,
+        0,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ],
+      "translation": [
+        0,
+        4,
+        0
+      ]
+    }
+  },
+  "flip_v": true,
+  "loader": "forge:obj",
+  "model": "fantasy_metropolis:textures/item/sword.obj",
+  "mtl_override": "fantasy_metropolis:textures/item/sword.mtl"
 }

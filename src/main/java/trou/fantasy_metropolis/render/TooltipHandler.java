@@ -45,7 +45,7 @@ public class TooltipHandler {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onRenderTick(TickEvent.RenderTickEvent event) {
         float baseFrameTime = Minecraft.getInstance().getDeltaFrameTime();
-        float speedFactor = 0.1f;
+        float speedFactor = 0.2f;
         var result = FrameWorker.increaseTimer(baseFrameTime * speedFactor);
         if (result >= 20) FrameWorker.resetTimer();
     }

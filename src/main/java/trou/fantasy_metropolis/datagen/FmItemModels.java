@@ -1,10 +1,11 @@
 package trou.fantasy_metropolis.datagen;
 
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
+import net.minecraftforge.client.model.generators.loaders.ObjModelBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import trou.fantasy_metropolis.FantasyMetropolis;
-import trou.fantasy_metropolis.Registries;
 
 public class FmItemModels extends ItemModelProvider {
 
@@ -14,6 +15,13 @@ public class FmItemModels extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        basicItem(Registries.ITEM_SWORD_WHITER.get());
+        getBuilder("whiter_sword")
+                .transforms()
+                .transform(ItemDisplayContext.GUI).scale(0.05f).rotation(180,0,0).translation(0, 4.0f, 0).end()
+                .transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).scale(0.05f).rotation(180,0,0).translation(0, 10f, 0).end()
+                .end().customLoader(ObjModelBuilder::begin)
+                .modelLocation(modLoc("textures/item/sword.obj"))
+                .overrideMaterialLibrary(modLoc("textures/item/sword.mtl"))
+                .flipV(true);
     }
 }
