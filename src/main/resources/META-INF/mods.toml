@@ -3,7 +3,7 @@ loaderVersion="[43,)"
 license="All rights reserved"
 [[mods]]
 modId="fantasy_metropolis"
-version="1.0.0"
+version="1.5.0"
 displayName="FantasyMetropolis"
 description="It's a mod about Fantasy Metropolis"
 [[dependencies.fantasy_metropolis]]
