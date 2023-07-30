@@ -34,11 +34,11 @@ public class TooltipHandler {
         if (event.getItemStack().getItem() instanceof ItemSwordWhiter) {
             int range = event.getItemStack().getOrCreateTag().getInt("range");
             event.getTooltipElements().subList(0, 4).clear(); // clear the default tooltip (title, empty, hand, speed)
-            event.getTooltipElements().add(Either.left(FormattedText.of(FrameWorker.marquee(I18n.get("tooltip.whiter_sword.title"), true))));
+            event.getTooltipElements().add(Either.left(FormattedText.of(FrameWorker.marqueeTitle(I18n.get("tooltip.whiter_sword.title")))));
             event.getTooltipElements().add(Either.left(FormattedText.of(ChatFormatting.LIGHT_PURPLE + "+ "  + I18n.get("tip.whiter"))));
             event.getTooltipElements().add(Either.left(FormattedText.of(ChatFormatting.BLUE + "+ "  + I18n.get("tip.range") + range)));
             event.getTooltipElements().add(Either.left(FormattedText.of("")));
-            event.getTooltipElements().add(Either.left(FormattedText.of(ChatFormatting.BLUE + "+ " + FrameWorker.marquee("无限 ", false) + I18n.get("tip.damage"))));
+            event.getTooltipElements().add(Either.left(FormattedText.of(ChatFormatting.BLUE + "+ " + FrameWorker.marqueeDamage("无限") + " " + I18n.get("tip.damage"))));
         }
     }
 

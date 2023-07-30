@@ -8,7 +8,7 @@ import java.util.List;
 public class FrameWorker {
     public static float renderTimer = 0;
 
-    private static final List<ChatFormatting> colorCodes = Arrays.asList(
+    private static final List<ChatFormatting> colorCodesTitle = Arrays.asList(
             ChatFormatting.DARK_GRAY,
             ChatFormatting.DARK_PURPLE,
             ChatFormatting.LIGHT_PURPLE,
@@ -16,6 +16,16 @@ public class FrameWorker {
             ChatFormatting.BLUE,
             ChatFormatting.DARK_AQUA,
             ChatFormatting.DARK_BLUE
+    );
+
+    private static final List<ChatFormatting> colorCodesDamage = Arrays.asList(
+            ChatFormatting.RED,
+            ChatFormatting.GOLD,
+            ChatFormatting.YELLOW,
+            ChatFormatting.GREEN,
+            ChatFormatting.BLUE,
+            ChatFormatting.AQUA,
+            ChatFormatting.LIGHT_PURPLE
     );
 
     public static float increaseTimer(float value) {
@@ -26,7 +36,15 @@ public class FrameWorker {
         renderTimer = 0;
     }
 
-    public static String marquee(String targetString, boolean bold) {
+    public static String marqueeTitle(String targetString) {
+        return marquee(targetString, true, colorCodesTitle);
+    }
+
+    public static String marqueeDamage(String targetString) {
+        return marquee(targetString, false, colorCodesDamage);
+    }
+
+    private static String marquee(String targetString, boolean bold, List<ChatFormatting> colorCodes) {
         var renderTick = (int) renderTimer;
         int colorCodeIndex = renderTick % colorCodes.size();
 
