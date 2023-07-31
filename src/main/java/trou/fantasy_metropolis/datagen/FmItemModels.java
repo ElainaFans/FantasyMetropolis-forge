@@ -15,7 +15,7 @@ public class FmItemModels extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        getBuilder("whiter_sword")
+        getBuilder("whiter_sword").renderType(modLoc("whiter_sword"))
                 .transforms()
                 .transform(ItemDisplayContext.GUI).scale(0.05f).rotation(180,0,0).translation(0, 4.0f, 0).end()
                 .transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).scale(0.05f).rotation(180,0,0).translation(0, 10f, 0).end()

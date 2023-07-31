@@ -38,5 +38,6 @@
   "flip_v": true,
   "loader": "forge:obj",
   "model": "fantasy_metropolis:textures/item/sword.obj",
-  "mtl_override": "fantasy_metropolis:textures/item/sword.mtl"
+  "mtl_override": "fantasy_metropolis:textures/item/sword.mtl",
+  "render_type": "fantasy_metropolis:whiter_sword"
 }
