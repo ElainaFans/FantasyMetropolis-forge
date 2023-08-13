@@ -1,37 +1,44 @@
 {
   "display": {
     "firstperson_righthand": {
-      "rotation": [
-        180,
-        0,
-        0
+      "right_rotation": [
+        -30,
+        -270,
+        15
       ],
       "scale": [
-        0.05,
-        0.05,
-        0.05
+        2,
+        2,
+        2
       ],
       "translation": [
-        0,
-        10,
+        -10,
+        -8,
         0
       ]
     },
-    "gui": {
-      "rotation": [
-        180,
+    "thirdperson_lefthand": {
+      "right_rotation": [
         0,
+        90,
         0
-      ],
-      "scale": [
-        0.05,
-        0.05,
-        0.05
       ],
       "translation": [
+        -18.5,
+        1.5,
+        -12.5
+      ]
+    },
+    "thirdperson_righthand": {
+      "right_rotation": [
         0,
-        4,
+        90,
         0
+      ],
+      "translation": [
+        -18.5,
+        1.5,
+        15
       ]
     }
   },
@@ -39,5 +46,17 @@
   "loader": "forge:obj",
   "model": "fantasy_metropolis:textures/item/sword.obj",
   "mtl_override": "fantasy_metropolis:textures/item/sword.mtl",
-  "render_type": "fantasy_metropolis:whiter_sword"
+  "transform": {
+    "rotation": [
+      1.0,
+      -0.0,
+      0.0,
+      -0.0
+    ],
+    "scale": [
+      0.1,
+      0.1,
+      0.1
+    ]
+  }
 }

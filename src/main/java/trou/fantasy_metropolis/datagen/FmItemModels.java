@@ -15,11 +15,14 @@ public class FmItemModels extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        getBuilder("whiter_sword").renderType(modLoc("whiter_sword"))
+        getBuilder("whiter_sword")
+                .rootTransforms().scale(0.1f).rotation(180, 0, 0, true).end()
                 .transforms()
-                .transform(ItemDisplayContext.GUI).scale(0.05f).rotation(180,0,0).translation(0, 4.0f, 0).end()
-                .transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).scale(0.05f).rotation(180,0,0).translation(0, 10f, 0).end()
-                .end().customLoader(ObjModelBuilder::begin)
+                    .transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).scale(2, 2, 2).rightRotation(-30, -270, 15).translation(-10, -8, 0).end()
+                    .transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND).rightRotation(0, 90, 0).translation(-18.5f, 1.5f, 15f).end()
+                    .transform(ItemDisplayContext.THIRD_PERSON_LEFT_HAND).rightRotation(0, 90, 0).translation(-18.5f, 1.5f, -12.5f).end()
+                .end()
+                .customLoader(ObjModelBuilder::begin)
                 .modelLocation(modLoc("textures/item/sword.obj"))
                 .overrideMaterialLibrary(modLoc("textures/item/sword.mtl"))
                 .flipV(true);

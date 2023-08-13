@@ -41,11 +41,12 @@ public class TooltipHandler {
         if (event.getItemStack().getItem() instanceof ItemSwordWhiter) {
             int range = event.getItemStack().getOrCreateTag().getInt("range");
             event.getTooltipElements().subList(0, 4).clear(); // clear the default tooltip (title, empty, hand, speed)
-            event.getTooltipElements().add(Either.left(FormattedText.of(FrameWorker.marqueeTitle(I18n.get("tooltip.whiter_sword.title")))));
-            event.getTooltipElements().add(Either.left(FormattedText.of(ChatFormatting.LIGHT_PURPLE + "+ "  + I18n.get("tooltip.skill.hint"))));
-            event.getTooltipElements().add(Either.left(FormattedText.of(ChatFormatting.BLUE + "+ "  + I18n.get("tooltip.skill.range") + range)));
-            event.getTooltipElements().add(Either.left(FormattedText.of("")));
-            event.getTooltipElements().add(Either.left(FormattedText.of(ChatFormatting.BLUE + "+ " + FrameWorker.marqueeDamage(I18n.get("tooltip.attack.damage")) + " " + I18n.get("tooltip.attack.hint"))));
+
+            event.getTooltipElements().add(0, Either.left(FormattedText.of(FrameWorker.marqueeTitle(I18n.get("tooltip.whiter_sword.title")))));
+            event.getTooltipElements().add(1, Either.left(FormattedText.of(ChatFormatting.LIGHT_PURPLE + "+ "  + I18n.get("tooltip.skill.hint"))));
+            event.getTooltipElements().add(2, Either.left(FormattedText.of(ChatFormatting.BLUE + "+ "  + I18n.get("tooltip.skill.range") + range)));
+            event.getTooltipElements().add(3, Either.left(FormattedText.of("")));
+            event.getTooltipElements().add(4, Either.left(FormattedText.of(ChatFormatting.BLUE + "+ " + FrameWorker.marqueeDamage(I18n.get("tooltip.attack.damage")) + " " + I18n.get("tooltip.attack.hint"))));
         }
     }
 
@@ -57,20 +58,20 @@ public class TooltipHandler {
         if (result >= 20) FrameWorker.resetTimer();
     }
 
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void onRegisterRenderTypes(RegisterNamedRenderTypesEvent event) {
-        // not quite sure about these code, especially shader state, they are not functionally working.
-        // some ideas are including from breaking apart de code.
-        // DE is combine with code chicken core and brandon core, many render functions are not included and pretty complex.
-        final RenderStateShard.ShaderStateShard renderStateShard = new RenderStateShard.ShaderStateShard(GameRenderer::getRendertypeItemEntityTranslucentCullShader);
-        RenderType baseType = RenderType.create(FantasyMetropolis.MOD_ID + ":whiter_sword", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.TRIANGLES, 256, true, false, RenderType.CompositeState.builder()
-                .setShaderState(renderStateShard)
-                .setTextureState(new RenderStateShard.TextureStateShard(new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/item/sword_basecolor.png"), false, false))
-                .setLightmapState(new RenderStateShard.LightmapStateShard(true))
-                .setOverlayState(new RenderStateShard.OverlayStateShard(true))
-                .createCompositeState(true));
-        event.register("wither_sword", baseType, baseType);
-    }
+//    @SubscribeEvent(priority = EventPriority.LOWEST)
+//    public static void onRegisterRenderTypes(RegisterNamedRenderTypesEvent event) {
+//        // not quite sure about these code, especially shader state, they are not functionally working.
+//        // some ideas are including from breaking apart de code.
+//        // DE is combine with code chicken core and brandon core, many render functions are not included and pretty complex.
+//        final RenderStateShard.ShaderStateShard renderStateShard = new RenderStateShard.ShaderStateShard(GameRenderer::getRendertypeItemEntityTranslucentCullShader);
+//        RenderType baseType = RenderType.create(FantasyMetropolis.MOD_ID + ":whiter_sword", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.TRIANGLES, 256, true, false, RenderType.CompositeState.builder()
+//                .setShaderState(renderStateShard)
+//                .setTextureState(new RenderStateShard.TextureStateShard(new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/item/sword_basecolor.png"), false, false))
+//                .setLightmapState(new RenderStateShard.LightmapStateShard(true))
+//                .setOverlayState(new RenderStateShard.OverlayStateShard(true))
+//                .createCompositeState(true));
+//        event.register("wither_sword", baseType, baseType);
+//    }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void colorTooltip(RenderTooltipEvent.Color event) {

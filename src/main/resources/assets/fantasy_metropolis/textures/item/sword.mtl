@@ -2,6 +2,10 @@
 # www.blender.org
 
 newmtl lambert5SG
+map_Kd fantasy_metropolis:item/sword_basecolor
+map_Ks fantasy_metropolis:item/sword_metallic
+map_d fantasy_metropolis:item/sword_op
+map_Ka fantasy_metropolis:item/sword_roughness
 Ns 0.000000
 Ka 1.000000 1.000000 1.000000
 Kd 0.500000 0.500000 0.500000
