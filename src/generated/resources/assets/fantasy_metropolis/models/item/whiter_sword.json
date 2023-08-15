@@ -1,6 +1,23 @@
 {
   "base": {
     "display": {
+      "firstperson_lefthand": {
+        "right_rotation": [
+          0,
+          -90,
+          15
+        ],
+        "scale": [
+          2,
+          2,
+          2
+        ],
+        "translation": [
+          65,
+          -8,
+          0
+        ]
+      },
       "firstperson_righthand": {
         "right_rotation": [
           -30,

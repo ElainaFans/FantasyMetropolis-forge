@@ -20,6 +20,7 @@ public class FmItemModels extends ItemModelProvider {
         var objBuilder = getBuilder("whiter_sword_obj")
                 .rootTransforms().scale(0.1f).rotation(180, 0, 0, true).end()
                 .transforms()
+                .transform(ItemDisplayContext.FIRST_PERSON_LEFT_HAND).scale(2, 2, 2).rightRotation(0, -90, 15).translation(65, -8, 0).end()
                 .transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).scale(2, 2, 2).rightRotation(-30, -270, 15).translation(-10, -8, 0).end()
                 .transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND).rightRotation(0, 90, 0).translation(-18.5f, 1.5f, 15f).end()
                 .transform(ItemDisplayContext.THIRD_PERSON_LEFT_HAND).rightRotation(0, 90, 0).translation(-18.5f, 1.5f, -12.5f).end()
