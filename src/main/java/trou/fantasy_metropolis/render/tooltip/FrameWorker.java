@@ -1,4 +1,4 @@
-package trou.fantasy_metropolis.render;
+package trou.fantasy_metropolis.render.tooltip;
 
 import net.minecraft.ChatFormatting;
 

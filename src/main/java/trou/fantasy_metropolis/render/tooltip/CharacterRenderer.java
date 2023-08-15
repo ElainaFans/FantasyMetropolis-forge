@@ -1,4 +1,4 @@
-package trou.fantasy_metropolis.render;
+package trou.fantasy_metropolis.render.tooltip;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;

@@ -1,23 +1,16 @@
-package trou.fantasy_metropolis.render;
+package trou.fantasy_metropolis.render.tooltip;
 
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.datafixers.util.Either;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
-import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.RenderStateShard;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.FormattedText;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterNamedRenderTypesEvent;
 import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -58,21 +51,6 @@ public class TooltipHandler {
         if (result >= 20) FrameWorker.resetTimer();
     }
 
-//    @SubscribeEvent(priority = EventPriority.LOWEST)
-//    public static void onRegisterRenderTypes(RegisterNamedRenderTypesEvent event) {
-//        // not quite sure about these code, especially shader state, they are not functionally working.
-//        // some ideas are including from breaking apart de code.
-//        // DE is combine with code chicken core and brandon core, many render functions are not included and pretty complex.
-//        final RenderStateShard.ShaderStateShard renderStateShard = new RenderStateShard.ShaderStateShard(GameRenderer::getRendertypeItemEntityTranslucentCullShader);
-//        RenderType baseType = RenderType.create(FantasyMetropolis.MOD_ID + ":whiter_sword", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.TRIANGLES, 256, true, false, RenderType.CompositeState.builder()
-//                .setShaderState(renderStateShard)
-//                .setTextureState(new RenderStateShard.TextureStateShard(new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/item/sword_basecolor.png"), false, false))
-//                .setLightmapState(new RenderStateShard.LightmapStateShard(true))
-//                .setOverlayState(new RenderStateShard.OverlayStateShard(true))
-//                .createCompositeState(true));
-//        event.register("wither_sword", baseType, baseType);
-//    }
-
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void colorTooltip(RenderTooltipEvent.Color event) {
         if (event.getItemStack().getItem() instanceof ItemSwordWhiter) {
@@ -83,7 +61,6 @@ public class TooltipHandler {
             event.setBackgroundEnd(0);
         }
     }
-
 
     public static void postTooltip(ItemStack stack, PoseStack poseStack, int x, int y, Font font, int width, int height, List<ClientTooltipComponent> components) {
         if (stack.getItem() instanceof ItemSwordWhiter) {
