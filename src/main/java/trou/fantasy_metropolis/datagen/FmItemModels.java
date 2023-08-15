@@ -24,6 +24,7 @@ public class FmItemModels extends ItemModelProvider {
                 .transform(ItemDisplayContext.FIRST_PERSON_RIGHT_HAND).scale(2, 2, 2).rightRotation(-30, -270, 15).translation(-10, -8, 0).end()
                 .transform(ItemDisplayContext.THIRD_PERSON_RIGHT_HAND).rightRotation(0, 90, 0).translation(-18.5f, 1.5f, 15f).end()
                 .transform(ItemDisplayContext.THIRD_PERSON_LEFT_HAND).rightRotation(0, 90, 0).translation(-18.5f, 1.5f, -12.5f).end()
+                .transform(ItemDisplayContext.GROUND).scale(0.5f, 0.5f, 0.5f).rightRotation(15, 0, 0).translation(-7.75f, 3, -7.75f).end()
                 .end()
                 .customLoader(ObjModelBuilder::begin)
                 .modelLocation(modLoc("textures/item/whiter_sword.obj"))
@@ -37,7 +38,6 @@ public class FmItemModels extends ItemModelProvider {
                 .base(objBuilder)
                 .perspective(ItemDisplayContext.GUI, flatBuilder)
                 .perspective(ItemDisplayContext.FIXED, flatBuilder)
-                .perspective(ItemDisplayContext.GROUND, flatBuilder)
                 .end();
     }
 }

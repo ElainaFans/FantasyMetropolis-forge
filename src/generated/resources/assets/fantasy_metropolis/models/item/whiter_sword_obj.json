@@ -34,6 +34,23 @@
         0
       ]
     },
+    "ground": {
+      "right_rotation": [
+        15,
+        0,
+        0
+      ],
+      "scale": [
+        0.2,
+        0.2,
+        0.2
+      ],
+      "translation": [
+        -15,
+        4,
+        -15
+      ]
+    },
     "thirdperson_lefthand": {
       "right_rotation": [
         0,

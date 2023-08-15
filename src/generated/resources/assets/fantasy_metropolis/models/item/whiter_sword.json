@@ -35,6 +35,23 @@
           0
         ]
       },
+      "ground": {
+        "right_rotation": [
+          15,
+          0,
+          0
+        ],
+        "scale": [
+          0.5,
+          0.5,
+          0.5
+        ],
+        "translation": [
+          -7.75,
+          3,
+          -7.75
+        ]
+      },
       "thirdperson_lefthand": {
         "right_rotation": [
           0,
@@ -81,12 +98,6 @@
   "loader": "forge:separate_transforms",
   "perspectives": {
     "fixed": {
-      "parent": "fantasy_metropolis:basic_broadsword",
-      "textures": {
-        "layer0": "fantasy_metropolis:item/whiter_sword"
-      }
-    },
-    "ground": {
       "parent": "fantasy_metropolis:basic_broadsword",
       "textures": {
         "layer0": "fantasy_metropolis:item/whiter_sword"
