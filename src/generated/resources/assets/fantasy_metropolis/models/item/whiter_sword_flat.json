@@ -1,0 +1,6 @@
+{
+  "parent": "fantasy_metropolis:basic_broadsword",
+  "textures": {
+    "layer0": "fantasy_metropolis:item/whiter_sword"
+  }
+}

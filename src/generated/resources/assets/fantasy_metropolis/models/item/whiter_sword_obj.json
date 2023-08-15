@@ -1,0 +1,62 @@
+{
+  "display": {
+    "firstperson_righthand": {
+      "right_rotation": [
+        -30,
+        -270,
+        15
+      ],
+      "scale": [
+        2,
+        2,
+        2
+      ],
+      "translation": [
+        -10,
+        -8,
+        0
+      ]
+    },
+    "thirdperson_lefthand": {
+      "right_rotation": [
+        0,
+        90,
+        0
+      ],
+      "translation": [
+        -18.5,
+        1.5,
+        -12.5
+      ]
+    },
+    "thirdperson_righthand": {
+      "right_rotation": [
+        0,
+        90,
+        0
+      ],
+      "translation": [
+        -18.5,
+        1.5,
+        15
+      ]
+    }
+  },
+  "flip_v": true,
+  "loader": "forge:obj",
+  "model": "fantasy_metropolis:textures/item/whiter_sword.obj",
+  "mtl_override": "fantasy_metropolis:textures/item/whiter_sword.mtl",
+  "transform": {
+    "rotation": [
+      1.0,
+      -0.0,
+      0.0,
+      -0.0
+    ],
+    "scale": [
+      0.1,
+      0.1,
+      0.1
+    ]
+  }
+}
