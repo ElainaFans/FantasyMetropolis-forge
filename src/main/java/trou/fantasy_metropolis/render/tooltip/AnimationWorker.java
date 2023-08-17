@@ -50,17 +50,15 @@ public class AnimationWorker {
         var renderTick = (int) renderTimer;
         int colorCodeIndex = renderTick % colorCodes.size();
 
-        List<String> chars = new ArrayList<>();
-        for (int i = targetString.length() - 1; i >= 0; i--) {
+        char[] charArray = targetString.toCharArray();
+        StringBuilder string = new StringBuilder();
+        for (int i = 0; i < charArray.length; i++) {
             char currentChar = targetString.charAt(i);
 
             String colorCode = "" + colorCodes.get((i + colorCodeIndex) % colorCodes.size()) + (bold ? ChatFormatting.BOLD : "");
-
-            chars.add(String.valueOf(currentChar));
-            chars.add(colorCode);
+            string.append(colorCode).append(currentChar);
         }
-        Collections.reverse(chars);
 
-        return String.join("", chars);
+        return string.toString();
     }
 }
