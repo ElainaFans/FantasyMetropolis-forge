@@ -24,6 +24,10 @@ import java.util.List;
 @Mod.EventBusSubscriber(modid = FantasyMetropolis.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class TooltipHandler {
     private static GuiGraphics guiGraphics = null;
+    private static int borderStart = 0;
+    private static int borderEnd = 0;
+    private static int bgStart = 0;
+    private static int bgEnd = 0;
 
     public static void setGuiGraphics(GuiGraphics value) {
         guiGraphics = value;
@@ -35,11 +39,11 @@ public class TooltipHandler {
             int range = event.getItemStack().getOrCreateTag().getInt("range");
             event.getTooltipElements().subList(0, 4).clear(); // clear the default tooltip (title, empty, hand, speed)
 
-            event.getTooltipElements().add(0, Either.left(FormattedText.of(FrameWorker.marqueeTitle(I18n.get("tooltip.whiter_sword.title")))));
+            event.getTooltipElements().add(0, Either.left(FormattedText.of(AnimationWorker.marqueeTitle(I18n.get("tooltip.whiter_sword.title")))));
             event.getTooltipElements().add(1, Either.left(FormattedText.of(ChatFormatting.LIGHT_PURPLE + "+ "  + I18n.get("tooltip.skill.hint"))));
             event.getTooltipElements().add(2, Either.left(FormattedText.of(ChatFormatting.BLUE + "+ "  + I18n.get("tooltip.skill.range") + range)));
             event.getTooltipElements().add(3, Either.left(FormattedText.of("")));
-            event.getTooltipElements().add(4, Either.left(FormattedText.of(ChatFormatting.BLUE + "+ " + FrameWorker.marqueeDamage(I18n.get("tooltip.attack.damage")) + " " + I18n.get("tooltip.attack.hint"))));
+            event.getTooltipElements().add(4, Either.left(FormattedText.of(ChatFormatting.BLUE + "+ " + AnimationWorker.marqueeDamage(I18n.get("tooltip.attack.damage")) + " " + I18n.get("tooltip.attack.hint"))));
         }
     }
 
@@ -47,8 +51,8 @@ public class TooltipHandler {
     public static void onRenderTick(TickEvent.RenderTickEvent event) {
         float baseFrameTime = Minecraft.getInstance().getDeltaFrameTime();
         float speedFactor = 0.2f;
-        var result = FrameWorker.increaseTimer(baseFrameTime * speedFactor);
-        if (result >= 20) FrameWorker.resetTimer();
+        var result = AnimationWorker.increaseTimer(baseFrameTime * speedFactor);
+        if (result >= 20) AnimationWorker.resetTimer();
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -59,6 +63,11 @@ public class TooltipHandler {
             event.setBorderEnd(0);
             event.setBackgroundStart(0);
             event.setBackgroundEnd(0);
+            // save the relevant position in order to redraw in the post stage
+            borderStart = event.getBorderStart();
+            borderEnd = event.getBorderEnd();
+            bgStart = event.getBackgroundStart();
+            bgEnd = event.getBackgroundEnd();
         }
     }
 

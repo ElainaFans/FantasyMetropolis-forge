@@ -3,7 +3,9 @@ package trou.fantasy_metropolis.render.tooltip;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
+import org.joml.Matrix4f;
 import trou.fantasy_metropolis.FantasyMetropolis;
 
 public class BorderRenderer {

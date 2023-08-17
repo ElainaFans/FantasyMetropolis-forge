@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class FrameWorker {
+public class AnimationWorker {
     public static float renderTimer = 0;
 
     private static final List<ChatFormatting> colorCodesTitle = Arrays.asList(
