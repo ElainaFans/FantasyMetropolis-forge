@@ -21,7 +21,7 @@ import java.util.List;
 @Mixin(GuiGraphics.class)
 public class GuiGraphicsMixin {
     @Final
-    @Shadow(remap = false)
+    @Shadow()
     private PoseStack pose;
 
     @Inject(method = "renderTooltipInternal",
