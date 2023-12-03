@@ -4,11 +4,18 @@
   "package": "trou.fantasy_metropolis.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "GuiGraphicsMixin"
+    "CreativeModeInventoryScreenMixin",
+    "GuiGraphicsMixin",
+    "PlayerRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "minVersion": "0.8.5",
-  "target": "@env(DEFAULT)"
+  "target": "@env(DEFAULT)",
+  "mixins": [
+    "InventoryMenuMixin",
+    "InventoryMixin",
+    "ServerPlayerMixin"
+  ]
 }
