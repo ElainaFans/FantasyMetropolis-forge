@@ -1,0 +1,42 @@
+{
+  "loader": "forge:obj",
+  "flip_v": true,
+  "model": "fantasy_metropolis:models/item/whiter_sword.obj",
+  "display": {
+    "gui": {
+      "rotation": [ 0, 0, 135 ],
+      "translation": [ 5, 7, 0 ],
+      "scale":[ 0.1, 0.1, 0.1 ]
+    },
+    "ground": {
+      "rotation": [ 180, 0, 0 ],
+      "translation": [ 0, 16, 0] ,
+      "scale":[ 0.06, 0.06, 0.06 ]
+    },
+    "fixed": {
+      "rotation": [ 0, 0, 135 ],
+      "translation": [ 5, 7, 0 ],
+      "scale":[ 0.1, 0.1, 0.1 ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [ 180, 90, 0 ],
+      "translation": [ 0, 18, 0.5 ],
+      "scale": [ 0.1, 0.1, 0.1 ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [ 180, 90, 0 ],
+      "translation": [ 0, 18, 2 ],
+      "scale": [ 0.1, 0.1, 0.1 ]
+    },
+    "firstperson_righthand": {
+      "rotation": [ 270, 90, -100 ],
+      "translation": [ 30, 16, -24 ],
+      "scale": [ 0.16, 0.16, 0.16 ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [ 270, 90, -100 ],
+      "translation": [ 26, 16, -24 ],
+      "scale": [ 0.16, 0.16, 0.16 ]
+    }
+  }
+}

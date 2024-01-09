@@ -1,6 +1,6 @@
 # Blender 3.6.1
 # www.blender.org
-mtllib sword.mtl
+mtllib whiter_sword.mtl
 o sword
 v -0.388137 11.560697 0.063402
 v -0.370088 11.574496 0.069319

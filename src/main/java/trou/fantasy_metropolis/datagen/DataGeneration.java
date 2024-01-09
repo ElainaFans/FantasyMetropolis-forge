@@ -10,6 +10,5 @@ public class DataGeneration {
         PackOutput packOutput = generator.getPackOutput();
 
         generator.addProvider(event.includeClient(), new FmBlockStates(packOutput, event.getExistingFileHelper()));
-        generator.addProvider(event.includeClient(), new FmItemModels(packOutput, event.getExistingFileHelper()));
     }
 }

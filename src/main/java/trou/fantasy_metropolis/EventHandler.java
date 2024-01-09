@@ -1,6 +1,7 @@
 package trou.fantasy_metropolis;
 
 import com.google.common.collect.Sets;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -11,6 +12,8 @@ import net.minecraft.world.item.DiggerItem;
 import net.minecraft.world.InteractionHand;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -18,6 +21,8 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import trou.fantasy_metropolis.capability.ContainerCapabilityProvider;
+import trou.fantasy_metropolis.capability.IContainerCapability;
 import trou.fantasy_metropolis.item.ItemSwordWhiter;
 import trou.fantasy_metropolis.network.NetworkHandler;
 import trou.fantasy_metropolis.network.PacketSwordWhiter;
@@ -114,6 +119,27 @@ public class EventHandler {
                 event.setCanceled(true);
                 return;
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onAttachCapabilityEvent(AttachCapabilitiesEvent<Entity> event) {
+        Entity entity = event.getObject();
+        if (entity instanceof Player) {
+            event.addCapability(new ResourceLocation(FantasyMetropolis.MOD_ID, "container"), new ContainerCapabilityProvider());
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerCloned(PlayerEvent.Clone event) {
+        LazyOptional<IContainerCapability> oldContainerCap = event.getOriginal().getCapability(Registries.FM_CONTAINER);
+        LazyOptional<IContainerCapability> newContainerCap = event.getEntity().getCapability(Registries.FM_CONTAINER);
+        if (oldContainerCap.isPresent() && newContainerCap.isPresent()) {
+            newContainerCap.ifPresent((newCap) -> {
+                oldContainerCap.ifPresent((oldCap) -> {
+                    newCap.deserializeNBT(oldCap.serializeNBT());
+                });
+            });
         }
     }
 }

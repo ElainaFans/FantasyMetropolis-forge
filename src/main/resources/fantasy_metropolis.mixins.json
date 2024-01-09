@@ -14,8 +14,6 @@
   "minVersion": "0.8.5",
   "target": "@env(DEFAULT)",
   "mixins": [
-    "InventoryMenuMixin",
-    "InventoryMixin",
-    "ServerPlayerMixin"
+    "InventoryMenuMixin"
   ]
 }
