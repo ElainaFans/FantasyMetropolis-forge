@@ -132,12 +132,14 @@ public class EventHandler {
 
     @SubscribeEvent
     public static void onPlayerCloned(PlayerEvent.Clone event) {
+        event.getOriginal().reviveCaps();
         LazyOptional<IContainerCapability> oldContainerCap = event.getOriginal().getCapability(Registries.FM_CONTAINER);
         LazyOptional<IContainerCapability> newContainerCap = event.getEntity().getCapability(Registries.FM_CONTAINER);
         if (oldContainerCap.isPresent() && newContainerCap.isPresent()) {
             newContainerCap.ifPresent((newCap) -> {
                 oldContainerCap.ifPresent((oldCap) -> {
                     newCap.deserializeNBT(oldCap.serializeNBT());
+                    event.getEntity().invalidateCaps();
                 });
             });
         }
