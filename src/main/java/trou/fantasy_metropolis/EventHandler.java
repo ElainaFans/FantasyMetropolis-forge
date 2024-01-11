@@ -12,8 +12,8 @@ import net.minecraft.world.item.DiggerItem;
 import net.minecraft.world.InteractionHand;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -22,10 +22,10 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import trou.fantasy_metropolis.capability.ContainerCapabilityProvider;
-import trou.fantasy_metropolis.capability.IContainerCapability;
 import trou.fantasy_metropolis.item.ItemSwordWhiter;
 import trou.fantasy_metropolis.network.NetworkHandler;
-import trou.fantasy_metropolis.network.PacketSwordWhiter;
+import trou.fantasy_metropolis.network.PacketRangeUpdate;
+import trou.fantasy_metropolis.util.CapabilityUtil;
 import trou.fantasy_metropolis.util.DamageUtil;
 import trou.fantasy_metropolis.util.PlayerUtil;
 
@@ -40,7 +40,7 @@ public class EventHandler {
     public static void onMouseScroll(InputEvent.MouseScrollingEvent event) {
         LocalPlayer player = Minecraft.getInstance().player;
         if (player != null && player.isShiftKeyDown() && player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof ItemSwordWhiter) {
-            NetworkHandler.INSTANCE.sendToServer(new PacketSwordWhiter((int) event.getScrollDelta()));
+            NetworkHandler.INSTANCE_0.sendToServer(new PacketRangeUpdate((int) event.getScrollDelta()));
             event.setCanceled(true);
         }
     }
@@ -132,16 +132,19 @@ public class EventHandler {
 
     @SubscribeEvent
     public static void onPlayerCloned(PlayerEvent.Clone event) {
-        event.getOriginal().reviveCaps();
-        LazyOptional<IContainerCapability> oldContainerCap = event.getOriginal().getCapability(Registries.FM_CONTAINER);
-        LazyOptional<IContainerCapability> newContainerCap = event.getEntity().getCapability(Registries.FM_CONTAINER);
-        if (oldContainerCap.isPresent() && newContainerCap.isPresent()) {
-            newContainerCap.ifPresent((newCap) -> {
-                oldContainerCap.ifPresent((oldCap) -> {
-                    newCap.deserializeNBT(oldCap.serializeNBT());
-                    event.getEntity().invalidateCaps();
-                });
-            });
+        CapabilityUtil.copyCapability(event.getOriginal(), event.getEntity());
+        CapabilityUtil.notifyPlayers(event.getEntity());
+    }
+
+    @SubscribeEvent
+    public static void onPlayerTracked(PlayerEvent.StartTracking event) {
+        CapabilityUtil.notifyPlayers(event.getEntity());
+    }
+
+    @SubscribeEvent
+    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (!event.player.level().isClientSide) {
+            CapabilityUtil.tryNotifyPlayers(event.player);
         }
     }
 }

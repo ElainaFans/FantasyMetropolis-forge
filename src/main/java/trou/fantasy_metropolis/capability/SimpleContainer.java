@@ -13,9 +13,11 @@ import org.jetbrains.annotations.NotNull;
 
 public class SimpleContainer implements Container, INBTSerializable<CompoundTag> {
     private int size;
+    private boolean dirty;
     private NonNullList<ItemStack> items;
 
     public SimpleContainer(int size) {
+        dirty = true;
         this.size = size;
         this.items = NonNullList.withSize(size, ItemStack.EMPTY);
     }
@@ -60,8 +62,16 @@ public class SimpleContainer implements Container, INBTSerializable<CompoundTag>
         return this.items.stream().allMatch(ItemStack::isEmpty);
     }
 
-    public void setChanged() {
+    public boolean isDirty() {
+        return dirty;
+    }
 
+    public void cancelDirty() {
+        dirty = false;
+    }
+
+    public void setChanged() {
+        this.dirty = true;
     }
 
     @Override
@@ -98,11 +108,13 @@ public class SimpleContainer implements Container, INBTSerializable<CompoundTag>
         CompoundTag nbt = new CompoundTag();
         nbt.put("Items", nbtTagList);
         nbt.putInt("Size", items.size());
+        nbt.putBoolean("Dirty", dirty);
         return nbt;
     }
 
     @Override
     public void deserializeNBT(final CompoundTag nbt) {
+        this.dirty = nbt.getBoolean("Dirty");
         setSize(nbt.contains("Size", Tag.TAG_INT) ? nbt.getInt("Size") : items.size());
         ListTag tagList = nbt.getList("Items", Tag.TAG_COMPOUND);
         for (int i = 0; i < tagList.size(); i++) {

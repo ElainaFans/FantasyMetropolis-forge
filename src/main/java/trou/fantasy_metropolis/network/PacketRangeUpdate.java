@@ -9,14 +9,14 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class PacketSwordWhiter {
+public class PacketRangeUpdate {
     private final int scroll;
 
-    public PacketSwordWhiter(FriendlyByteBuf buffer) {
+    public PacketRangeUpdate(FriendlyByteBuf buffer) {
         scroll = buffer.readInt();
     }
 
-    public PacketSwordWhiter(int scroll) {
+    public PacketRangeUpdate(int scroll) {
         this.scroll = scroll;
     }
 
