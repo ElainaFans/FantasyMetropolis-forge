@@ -20,7 +20,7 @@ apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply from: 'https://raw.githubusercontent.com/SizableShrimp/Forge-Class-Remapper/main/classremapper.gradle'
 
-version = 'forge-1.20.1-1.8.0'
+version = 'forge-1.20.1-1.8.1'
 group = 'trou.fantasy_metropolis'
 archivesBaseName = 'FantasyMetropolis'
 

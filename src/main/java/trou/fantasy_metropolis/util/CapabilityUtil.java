@@ -18,8 +18,8 @@ public class CapabilityUtil {
             var newCap = newContainerCap.resolve().get();
             var oldCap = oldContainerCap.resolve().get();
             newCap.deserializeNBT(oldCap.serializeNBT());
-            target.invalidateCaps();
         }
+        source.invalidateCaps();
     }
 
     public static void applyCapability(CompoundTag compoundTag, Player target) {
