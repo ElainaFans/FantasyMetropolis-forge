@@ -35,7 +35,7 @@ public class CapabilityUtil {
         if (capability.resolve().isPresent()) {
             var cap = capability.resolve().get();
             if (cap.getContainer().isDirty()) {
-                NetworkHandler.INSTANCE_1.send(PacketDistributor.ALL.noArg(), new PacketContainerUpdate(source.getUUID(), cap.serializeNBT()));
+                NetworkHandler.CHANNEL_CONTAINER.send(PacketDistributor.ALL.noArg(), new PacketContainerUpdate(source.getUUID(), cap.serializeNBT()));
                 cap.getContainer().cancelDirty();
             }
         }
@@ -45,7 +45,7 @@ public class CapabilityUtil {
         LazyOptional<IContainerCapability> capability = source.getCapability(Registries.FM_CONTAINER);
         if (capability.resolve().isPresent()) {
             var cap = capability.resolve().get();
-            NetworkHandler.INSTANCE_1.send(PacketDistributor.ALL.noArg(), new PacketContainerUpdate(source.getUUID(), cap.serializeNBT()));
+            NetworkHandler.CHANNEL_CONTAINER.send(PacketDistributor.ALL.noArg(), new PacketContainerUpdate(source.getUUID(), cap.serializeNBT()));
             cap.getContainer().cancelDirty();
         }
     }

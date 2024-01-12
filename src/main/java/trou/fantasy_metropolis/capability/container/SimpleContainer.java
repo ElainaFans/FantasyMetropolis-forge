@@ -1,4 +1,4 @@
-package trou.fantasy_metropolis.capability;
+package trou.fantasy_metropolis.capability.container;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;

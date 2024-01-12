@@ -13,8 +13,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import trou.fantasy_metropolis.Registries;
 import trou.fantasy_metropolis.capability.IContainerCapability;
-import trou.fantasy_metropolis.capability.SimpleContainer;
-import trou.fantasy_metropolis.render.container.WhiterSlot;
+import trou.fantasy_metropolis.capability.container.SimpleContainer;
+import trou.fantasy_metropolis.capability.container.WhiterSlot;
 
 @Mixin(InventoryMenu.class)
 public abstract class InventoryMenuMixin extends AbstractContainerMenu {

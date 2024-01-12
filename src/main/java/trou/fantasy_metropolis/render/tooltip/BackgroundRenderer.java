@@ -8,7 +8,7 @@ import trou.fantasy_metropolis.FantasyMetropolis;
 
 public class BackgroundRenderer {
     private final GuiGraphics guiGraphics;
-    private final ResourceLocation border_background = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/border/background.png");
+    private final ResourceLocation border_background = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/fancy_bg.png");
 
     public BackgroundRenderer(GuiGraphics guiGraphics) {
         this.guiGraphics = guiGraphics;

@@ -2,6 +2,7 @@ package trou.fantasy_metropolis.capability;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.AutoRegisterCapability;
+import trou.fantasy_metropolis.capability.container.SimpleContainer;
 
 @AutoRegisterCapability
 public class ContainerCapability implements IContainerCapability{

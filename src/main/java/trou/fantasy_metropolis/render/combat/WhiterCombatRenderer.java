@@ -14,7 +14,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import trou.fantasy_metropolis.Registries;
 import trou.fantasy_metropolis.capability.IContainerCapability;
-import trou.fantasy_metropolis.capability.SimpleContainer;
+import trou.fantasy_metropolis.capability.container.SimpleContainer;
 import trou.fantasy_metropolis.item.ItemSwordWhiter;
 
 public class WhiterCombatRenderer extends RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {

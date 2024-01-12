@@ -40,7 +40,7 @@ public class EventHandler {
     public static void onMouseScroll(InputEvent.MouseScrollingEvent event) {
         LocalPlayer player = Minecraft.getInstance().player;
         if (player != null && player.isShiftKeyDown() && player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof ItemSwordWhiter) {
-            NetworkHandler.INSTANCE_0.sendToServer(new PacketRangeUpdate((int) event.getScrollDelta()));
+            NetworkHandler.CHANNEL_RANGE.sendToServer(new PacketRangeUpdate((int) event.getScrollDelta()));
             event.setCanceled(true);
         }
     }

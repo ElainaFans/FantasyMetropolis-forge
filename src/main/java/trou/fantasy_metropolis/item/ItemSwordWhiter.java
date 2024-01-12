@@ -18,6 +18,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import trou.fantasy_metropolis.util.DamageUtil;
 import trou.fantasy_metropolis.util.PlayerUtil;
 
@@ -31,14 +32,14 @@ public class ItemSwordWhiter extends SwordItem {
     }
 
     @Override
-    public ItemStack getDefaultInstance() {
+    public @NotNull ItemStack getDefaultInstance() {
         ItemStack stack = new ItemStack(this);
         stack.getOrCreateTag().putInt("range", 10);
         return stack;
     }
 
     @Override
-    public void onCraftedBy(ItemStack pStack, Level pLevel, Player pPlayer) {
+    public void onCraftedBy(@NotNull ItemStack pStack, @NotNull Level pLevel, @NotNull Player pPlayer) {
         super.onCraftedBy(pStack, pLevel, pPlayer);
         pStack.getOrCreateTag().putInt("range", 10);
     }
@@ -62,7 +63,7 @@ public class ItemSwordWhiter extends SwordItem {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, InteractionHand hand) {
         if (hand.equals(InteractionHand.MAIN_HAND) && player.isShiftKeyDown()) {
             if (!level.isClientSide) {
                 player.sendSystemMessage(Component.translatable("whiter_sword.kill_range"));
@@ -75,7 +76,7 @@ public class ItemSwordWhiter extends SwordItem {
     }
 
     @Override
-    public void inventoryTick(ItemStack pStack, Level pLevel, Entity pEntity, int pItemSlot, boolean pIsSelected) {
+    public void inventoryTick(@NotNull ItemStack pStack, @NotNull Level pLevel, @NotNull Entity pEntity, int pItemSlot, boolean pIsSelected) {
         if (!(pEntity instanceof Player player)) return;
         // The first one who has it will be the owner
         CompoundTag tag = pStack.getOrCreateTag();
@@ -88,7 +89,7 @@ public class ItemSwordWhiter extends SwordItem {
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot) {
+    public @NotNull Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot pEquipmentSlot) {
         // set attack speed
         if (pEquipmentSlot.equals(EquipmentSlot.MAINHAND)) {
             ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
@@ -125,7 +126,7 @@ public class ItemSwordWhiter extends SwordItem {
         }
 
         @Override
-        public Ingredient getRepairIngredient() {
+        public @NotNull Ingredient getRepairIngredient() {
             return Ingredient.EMPTY;
         }
     }

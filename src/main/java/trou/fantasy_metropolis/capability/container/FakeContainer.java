@@ -1,4 +1,4 @@
-package trou.fantasy_metropolis.render.container;
+package trou.fantasy_metropolis.capability.container;
 
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;

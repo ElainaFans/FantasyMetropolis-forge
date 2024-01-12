@@ -11,8 +11,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-import trou.fantasy_metropolis.render.container.FakeContainer;
-import trou.fantasy_metropolis.render.container.WhiterSlot;
+import trou.fantasy_metropolis.capability.container.FakeContainer;
+import trou.fantasy_metropolis.capability.container.WhiterSlot;
 
 @Mixin(CreativeModeInventoryScreen.class)
 public class CreativeModeInventoryScreenMixin {

@@ -3,22 +3,20 @@ package trou.fantasy_metropolis.render.tooltip;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
-import org.joml.Matrix4f;
 import trou.fantasy_metropolis.FantasyMetropolis;
 
 public class BorderRenderer {
     private final GuiGraphics guiGraphics;
-    private final ResourceLocation top = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/border/top.png");
-    private final ResourceLocation bottom = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/border/bottom.png");
-    private final ResourceLocation left = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/border/left.png");
-    private final ResourceLocation right = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/border/right.png");
-    private final ResourceLocation left_top = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/border/left_top.png");
-    private final ResourceLocation right_top = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/border/right_top.png");
-    private final ResourceLocation left_bottom = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/border/left_bottom.png");
-    private final ResourceLocation right_bottom = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/border/right_bottom.png");
-    private final ResourceLocation star = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/border/stars.png");
+    private final ResourceLocation top = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/border_top.png");
+    private final ResourceLocation bottom = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/border_bottom.png");
+    private final ResourceLocation left = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/border_left.png");
+    private final ResourceLocation right = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/border_right.png");
+    private final ResourceLocation left_top = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/border_left_top.png");
+    private final ResourceLocation right_top = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/border_right_top.png");
+    private final ResourceLocation left_bottom = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/border_left_bottom.png");
+    private final ResourceLocation right_bottom = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/border_right_bottom.png");
+    private final ResourceLocation star = new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/border_stars.png");
 
     public BorderRenderer(GuiGraphics guiGraphics) {
         this.guiGraphics = guiGraphics;

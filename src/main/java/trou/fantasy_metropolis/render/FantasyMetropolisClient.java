@@ -1,4 +1,4 @@
-package trou.fantasy_metropolis.render.tooltip;
+package trou.fantasy_metropolis.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Either;
@@ -18,16 +18,16 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import trou.fantasy_metropolis.FantasyMetropolis;
 import trou.fantasy_metropolis.item.ItemSwordWhiter;
+import trou.fantasy_metropolis.render.tooltip.AnimationWorker;
+import trou.fantasy_metropolis.render.tooltip.BackgroundRenderer;
+import trou.fantasy_metropolis.render.tooltip.BorderRenderer;
+import trou.fantasy_metropolis.render.tooltip.CharacterRenderer;
 
 import java.util.List;
 
 @Mod.EventBusSubscriber(modid = FantasyMetropolis.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
-public class TooltipHandler {
+public class FantasyMetropolisClient {
     private static GuiGraphics guiGraphics = null;
-    private static int borderStart = 0;
-    private static int borderEnd = 0;
-    private static int bgStart = 0;
-    private static int bgEnd = 0;
 
     public static void setGuiGraphics(GuiGraphics value) {
         guiGraphics = value;
@@ -63,11 +63,6 @@ public class TooltipHandler {
             event.setBorderEnd(0);
             event.setBackgroundStart(0);
             event.setBackgroundEnd(0);
-            // save the relevant position in order to redraw in the post stage
-            borderStart = event.getBorderStart();
-            borderEnd = event.getBorderEnd();
-            bgStart = event.getBackgroundStart();
-            bgEnd = event.getBackgroundEnd();
         }
     }
 

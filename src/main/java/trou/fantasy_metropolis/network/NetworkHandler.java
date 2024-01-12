@@ -6,8 +6,8 @@ import net.minecraftforge.network.simple.SimpleChannel;
 import trou.fantasy_metropolis.FantasyMetropolis;
 
 public class NetworkHandler {
-    public static SimpleChannel INSTANCE_0;
-    public static SimpleChannel INSTANCE_1;
+    public static SimpleChannel CHANNEL_RANGE;
+    public static SimpleChannel CHANNEL_CONTAINER;
     public static final String VERSION = "1.0";
     private static int ID = 0;
 
@@ -16,24 +16,24 @@ public class NetworkHandler {
     }
 
     public static void registerMessage() {
-        INSTANCE_0 = NetworkRegistry.newSimpleChannel(
+        CHANNEL_RANGE = NetworkRegistry.newSimpleChannel(
                 new ResourceLocation(FantasyMetropolis.MOD_ID, "whiter_sword_range"),
                 () -> VERSION,
                 (version) -> version.equals(VERSION),
                 (version) -> version.equals(VERSION)
         );
-        INSTANCE_1 = NetworkRegistry.newSimpleChannel(
+        CHANNEL_CONTAINER = NetworkRegistry.newSimpleChannel(
                 new ResourceLocation(FantasyMetropolis.MOD_ID, "whiter_sword_container"),
                 () -> VERSION,
                 (version) -> version.equals(VERSION),
                 (version) -> version.equals(VERSION)
         );
-        INSTANCE_0.messageBuilder(PacketRangeUpdate.class, nextID())
+        CHANNEL_RANGE.messageBuilder(PacketRangeUpdate.class, nextID())
                 .encoder(PacketRangeUpdate::toBytes)
                 .decoder(PacketRangeUpdate::new)
                 .consumerMainThread(PacketRangeUpdate::handler)
                 .add();
-        INSTANCE_1.messageBuilder(PacketContainerUpdate.class, nextID())
+        CHANNEL_CONTAINER.messageBuilder(PacketContainerUpdate.class, nextID())
                 .encoder(PacketContainerUpdate::toBytes)
                 .decoder(PacketContainerUpdate::new)
                 .consumerMainThread(PacketContainerUpdate::handler)

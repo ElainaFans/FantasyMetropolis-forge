@@ -2,9 +2,7 @@ package trou.fantasy_metropolis.render.tooltip;
 
 import net.minecraft.ChatFormatting;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class AnimationWorker {
