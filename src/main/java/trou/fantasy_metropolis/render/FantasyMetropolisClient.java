@@ -9,6 +9,8 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.FormattedText;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderTooltipEvent;
@@ -22,7 +24,9 @@ import trou.fantasy_metropolis.render.tooltip.AnimationWorker;
 import trou.fantasy_metropolis.render.tooltip.BackgroundRenderer;
 import trou.fantasy_metropolis.render.tooltip.BorderRenderer;
 import trou.fantasy_metropolis.render.tooltip.CharacterRenderer;
+import trou.fantasy_metropolis.util.FormattedTextUtil;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Mod.EventBusSubscriber(modid = FantasyMetropolis.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
@@ -37,7 +41,19 @@ public class FantasyMetropolisClient {
     public static void gatherComponents(RenderTooltipEvent.GatherComponents event) {
         if (event.getItemStack().getItem() instanceof ItemSwordWhiter) {
             int range = event.getItemStack().getOrCreateTag().getInt("range");
-            event.getTooltipElements().subList(0, 4).clear(); // clear the default tooltip (title, empty, hand, speed)
+            boolean firstEmptyElement = false;
+            List<Either<FormattedText, TooltipComponent>> waitForRemoval = new LinkedList<>();
+            for (var element : event.getTooltipElements()) {
+                if (element.left().isEmpty()) continue;
+                if (!(element.left().get() instanceof MutableComponent mutableComponent)) continue;
+                if (FormattedTextUtil.isEmptyLabel(mutableComponent) && !firstEmptyElement) {
+                    firstEmptyElement = true;
+                    waitForRemoval.add(element);
+                }
+                if (FormattedTextUtil.isRemoveTarget(mutableComponent)) waitForRemoval.add(element);
+            }
+
+            waitForRemoval.forEach((element) -> event.getTooltipElements().remove(element));
 
             event.getTooltipElements().add(0, Either.left(FormattedText.of(AnimationWorker.marqueeTitle(I18n.get("tooltip.whiter_sword.title")))));
             event.getTooltipElements().add(1, Either.left(FormattedText.of(ChatFormatting.LIGHT_PURPLE + "+ "  + I18n.get("tooltip.skill.hint"))));
