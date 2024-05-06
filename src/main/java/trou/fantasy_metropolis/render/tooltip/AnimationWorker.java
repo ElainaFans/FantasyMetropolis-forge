@@ -1,6 +1,8 @@
 package trou.fantasy_metropolis.render.tooltip;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.resources.ResourceLocation;
+import trou.fantasy_metropolis.FantasyMetropolis;
 
 import java.util.Arrays;
 import java.util.List;
@@ -58,5 +60,10 @@ public class AnimationWorker {
         }
 
         return string.toString();
+    }
+
+    public static ResourceLocation marqueeGif(int size) {
+        int numIndex = ((int) renderTimer) % size;
+        return new ResourceLocation(FantasyMetropolis.MOD_ID, "textures/tooltip/title/" + (numIndex + 1) + ".png");
     }
 }

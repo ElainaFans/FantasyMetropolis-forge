@@ -20,10 +20,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import trou.fantasy_metropolis.FantasyMetropolis;
 import trou.fantasy_metropolis.item.ItemSwordWhiter;
-import trou.fantasy_metropolis.render.tooltip.AnimationWorker;
-import trou.fantasy_metropolis.render.tooltip.BackgroundRenderer;
-import trou.fantasy_metropolis.render.tooltip.BorderRenderer;
-import trou.fantasy_metropolis.render.tooltip.CharacterRenderer;
+import trou.fantasy_metropolis.render.tooltip.*;
 import trou.fantasy_metropolis.util.FormattedTextUtil;
 
 import java.util.LinkedList;
@@ -55,7 +52,7 @@ public class FantasyMetropolisClient {
 
             waitForRemoval.forEach((element) -> event.getTooltipElements().remove(element));
 
-            event.getTooltipElements().add(0, Either.left(FormattedText.of(AnimationWorker.marqueeTitle(I18n.get("tooltip.whiter_sword.title")))));
+            event.getTooltipElements().add(0, Either.left(FormattedText.of("")));
             event.getTooltipElements().add(1, Either.left(FormattedText.of(ChatFormatting.LIGHT_PURPLE + "+ "  + I18n.get("tooltip.skill.hint"))));
             event.getTooltipElements().add(2, Either.left(FormattedText.of(ChatFormatting.BLUE + "+ "  + I18n.get("tooltip.skill.range") + range)));
             event.getTooltipElements().add(3, Either.left(FormattedText.of("")));
@@ -87,9 +84,11 @@ public class FantasyMetropolisClient {
             var characterRender = new CharacterRenderer(guiGraphics);
             var backgroundRender = new BackgroundRenderer(guiGraphics);
             var borderRender = new BorderRenderer(guiGraphics);
+            var titleRender = new TitleRenderer(guiGraphics);
             characterRender.drawImage(poseStack, x, y);
             borderRender.drawImage(poseStack, x, y, width, height);
             backgroundRender.drawImage(poseStack, x, y, width, height);
+            titleRender.drawImage(poseStack, x, y, width);
         }
     }
 }

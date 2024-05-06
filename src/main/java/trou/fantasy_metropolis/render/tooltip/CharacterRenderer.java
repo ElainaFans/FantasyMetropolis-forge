@@ -18,8 +18,8 @@ public class CharacterRenderer {
         poseStack.pushPose();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         poseStack.translate(0, 0, 410.0); // always on the top layer
-        int CHARACTER_WIDTH = 60;
-        int CHARACTER_HEIGHT = 83;
+        int CHARACTER_WIDTH = 58;
+        int CHARACTER_HEIGHT = 80;
         guiGraphics.blit(left_character, x - 68, y - 16, 0, 0, CHARACTER_WIDTH, CHARACTER_HEIGHT, CHARACTER_WIDTH, CHARACTER_HEIGHT);
         poseStack.popPose();
     }
