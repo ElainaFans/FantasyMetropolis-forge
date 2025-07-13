@@ -1,6 +1,5 @@
 package trou.fantasy_metropolis;
 
-import com.google.common.collect.Sets;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.client.Minecraft;
@@ -14,7 +13,6 @@ import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -29,12 +27,8 @@ import trou.fantasy_metropolis.util.CapabilityUtil;
 import trou.fantasy_metropolis.util.DamageUtil;
 import trou.fantasy_metropolis.util.PlayerUtil;
 
-import java.util.Set;
-
 @Mod.EventBusSubscriber
 public class EventHandler {
-
-    public static Set<Class<? extends Entity>> antiEntity = Sets.newHashSet();
 
     @SubscribeEvent
     public static void onMouseScroll(InputEvent.MouseScrollingEvent event) {
@@ -104,20 +98,8 @@ public class EventHandler {
             var receiver = event.getEntity();
             if (attacker instanceof Player playerAttacker) {
                 if (PlayerUtil.hasSword(playerAttacker)) {
-                    DamageUtil.killEntityLiving(receiver);
+                    DamageUtil.killLivingEntity(receiver);
                 }
-            }
-        }
-    }
-
-    // black magic included in order to prohibit reviving of some living
-    @SubscribeEvent
-    public void onEntityItemJoinWorld(EntityJoinLevelEvent event) {
-        Entity entity = event.getEntity();
-        for (Class<? extends Entity> clazz : antiEntity) {
-            if (clazz.isInstance(entity)) {
-                event.setCanceled(true);
-                return;
             }
         }
     }

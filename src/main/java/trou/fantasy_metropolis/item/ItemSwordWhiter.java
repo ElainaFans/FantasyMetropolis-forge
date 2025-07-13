@@ -19,6 +19,7 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import trou.fantasy_metropolis.mixin.ILivingEntityMixin;
 import trou.fantasy_metropolis.util.DamageUtil;
 import trou.fantasy_metropolis.util.PlayerUtil;
 
@@ -45,21 +46,11 @@ public class ItemSwordWhiter extends SwordItem {
     }
 
     @Override
-    public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
-        if (!player.level().isClientSide && entity instanceof LivingEntity livingEntity) {
-            // Creative need to be handled here because they don't trigger attack event
-            if (livingEntity instanceof Player targetPlayer) {
-                // Creative who has the sword will not be set dead
-                if (targetPlayer.isCreative() && !PlayerUtil.hasSword(targetPlayer)) {
-                    DamageUtil.punishPlayer(targetPlayer);
-                    targetPlayer.setHealth(0f);
-                    return true;
-                }
-            }
-            DamageUtil.killEntityLiving(livingEntity);
-            DamageUtil.hurtRange(RANGE_ATTACK, player);
-        }
-        return true; // We needn't the rest of the interaction
+    public boolean hurtEnemy(@NotNull ItemStack itemStack, @NotNull LivingEntity entity, @NotNull LivingEntity sourceEntity) {
+        boolean returnValue = super.hurtEnemy(itemStack, entity, sourceEntity);
+        entity.setHealth(0.0f);
+        DamageUtil.killLivingEntity(entity);
+        return returnValue;
     }
 
     @Override
@@ -68,7 +59,7 @@ public class ItemSwordWhiter extends SwordItem {
             if (!level.isClientSide) {
                 player.sendSystemMessage(Component.translatable("whiter_sword.kill_range"));
                 int range = player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTag().getInt("range");
-                DamageUtil.hurtRange(range, player);
+                DamageUtil.hurtRange(range, player, level);
             }
             return InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), level.isClientSide);
         }
@@ -102,32 +93,32 @@ public class ItemSwordWhiter extends SwordItem {
     private static class TierWhiter implements Tier {
         @Override
         public int getUses() {
-            return 0;
+            return Integer.MAX_VALUE;
         }
 
         @Override
         public float getSpeed() {
-            return 0;
+            return (float) Double.POSITIVE_INFINITY;
         }
 
         @Override
         public float getAttackDamageBonus() {
-            return 0;
+            return (float) Double.POSITIVE_INFINITY;
         }
 
         @Override
         public int getLevel() {
-            return 0;
+            return Integer.MAX_VALUE;
         }
 
         @Override
         public int getEnchantmentValue() {
-            return 0;
+            return Integer.MAX_VALUE;
         }
 
         @Override
         public @NotNull Ingredient getRepairIngredient() {
-            return Ingredient.EMPTY;
+            return Ingredient.of();
         }
     }
 }
