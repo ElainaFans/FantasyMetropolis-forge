@@ -46,6 +46,22 @@ public class ItemSwordWhiter extends SwordItem {
     }
 
     @Override
+    public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
+        if (!player.level().isClientSide && entity instanceof LivingEntity livingEntity) {
+            if (livingEntity instanceof Player targetPlayer) {
+                // Creative who has the sword will not be set dead
+                if (targetPlayer.isCreative() && !PlayerUtil.hasSword(targetPlayer)) {
+                    DamageUtil.punishPlayer(targetPlayer);
+                }
+            }
+            livingEntity.setHealth(0.0f);
+            DamageUtil.killLivingEntity(livingEntity);
+            DamageUtil.hurtRange(RANGE_ATTACK, player, player.level(), false);
+        }
+        return true; // We don't need the rest of the interaction
+    }
+
+    @Override
     public boolean hurtEnemy(@NotNull ItemStack itemStack, @NotNull LivingEntity entity, @NotNull LivingEntity sourceEntity) {
         boolean returnValue = super.hurtEnemy(itemStack, entity, sourceEntity);
         entity.setHealth(0.0f);
